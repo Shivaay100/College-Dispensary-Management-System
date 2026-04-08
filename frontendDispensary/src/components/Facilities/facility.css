@@ -1,0 +1,49 @@
+.facility {
+    padding: 20px;
+}
+
+/* Header */
+.facility-header {
+    font-size: 24px;
+    color: #255674;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* List container */
+.facility-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Card Design */
+.facility-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.facility-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* Title */
+.facility-list-header {
+    font-weight: 600;
+    color: #255674;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* Description */
+.facility-list-value {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+}

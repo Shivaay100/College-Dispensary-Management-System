@@ -1,0 +1,42 @@
+/* Container */
+.nearby-container {
+    padding: 20px;
+}
+
+/* Title */
+.nearby-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #255674;
+    margin-bottom: 20px;
+}
+
+/* Table wrapper */
+.nearby-table {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Optional: hover effect on rows */
+.MuiTableRow-root:hover {
+    background-color: #f5f9fc !important;
+    transition: 0.3s;
+}
+
+/* Optional: zebra rows enhancement */
+.MuiTableRow-root:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nearby-title {
+        font-size: 20px;
+    }
+
+    .nearby-table {
+        padding: 10px;
+    }
+}
