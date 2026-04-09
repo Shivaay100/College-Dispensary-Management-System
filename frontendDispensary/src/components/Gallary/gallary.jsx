@@ -6,20 +6,30 @@ const Gallary = () => {
   const images = [
     
     { 
-      src: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800&auto=format&fit=crop", 
+      src: "https://www.mnnit.ac.in/newhc/images/demo/h.jpg", 
       title: "Hospital" 
     },
+
     { 
-      src: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=800&auto=format&fit=crop", 
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdW_5hDVAmKiZ77___NlgbFLTl4xaTOKukg&s", 
+      title: "Reception" 
+    },
+    { 
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBUYn8UCDQntrEUQGIWvuamONpBcTU3eCkYQ&s", 
       title: "Doctors" 
     },
     
     { 
-      src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop", 
-      title: "Laboratory" 
+      src: "https://www.mnit.ac.in/facilities/images/dispensary/dispensary3.jpg", 
+      title: "Rooms" 
+    },
+
+     { 
+      src: "https://content.jdmagicbox.com/comp/allahabad/z4/0532px532.x532.220716202432.q4z4/catalogue/mnnit-dispensary-allahabad-city-allahabad-clinics-xAE62Iq6Xx-250.jpg", 
+      title: "Interior" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=800&auto=format&fit=crop", 
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Ij5B7pNZB_x7Qp2UmcFCWO7bmhgM5ClgBQ&s", 
       title: "Patient Care" 
     }
   ];
