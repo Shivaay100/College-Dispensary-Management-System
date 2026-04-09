@@ -3,8 +3,11 @@ import './header.css'
 import logo from '../../assets/MNNIT_LOGO_img.jpg'
 import banner from '../../assets/Cover-image1.jpg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+
+  const location = useLocation();
   const[eventpopup,setEventpopup] = useState(false);
   const[helpline,setHelpline] = useState(false);
 
@@ -40,7 +43,7 @@ const handleClosePopup = (popup) => {
         <div className='header-college-details-left-logo'>
           <img src={logo} alt='College Logo'/>
           <div>
-            <div className='header-college-details-name'>मोतीलाल नेहरू नेशनल इंस्टीट्यूट ऑफ़ टेक्नोलॉजी,</div>
+            <div className='header-college-details-name'>मोतीलाल नेहरू राष्ट्रीय प्रौद्योगिकी संस्थान</div>
             <div className='header-college-details-place-red'>इलाहाबाद</div>
             <div className='header-college-details-name'>Motilal Nehru National Institute of Technology</div>
             <div className='header-college-details-place-red'>Allahabad</div>
@@ -70,9 +73,9 @@ const handleClosePopup = (popup) => {
 
       {/* ✅ Row 2 - Navbar OUTSIDE header-college-details */}
       <div className='navbar'>
-        <div className='navbar-links'>Home</div>
-        <div className='navbar-links'>Login</div>
-        <div className='navbar-links'>Stock View</div>
+        <Link to={'/'} className={`navbar-links ${location.pathname==="/"?'active-link':null}`}>Home</Link>
+        <Link to={'/login'} className={`navbar-links ${location.pathname==="/login"?'active-link':null}`}>Login</Link>
+        <Link to={'/stock'} className={`navbar-links ${location.pathname==="/stock"?'active-link':null}`}>Stock View</Link>
         <div className='navbar-links event-link' onMouseEnter={() => handleOpenPopup("event")} onMouseLeave={() => handleClosePopup("event")}>
           <div className = 'navbar-link-opt'> New Events <ArrowDropDownIcon/></div>
          
@@ -99,9 +102,11 @@ const handleClosePopup = (popup) => {
           </div>
       </div>
 
-      <div className='header-banner'>
+      {
+        location.pathname==="/" && <div className='header-banner'>
     <img src={banner} alt='MNNIT Banner' className='header-banner-image'/>
 </div>
+      }
 
 
     </div>
