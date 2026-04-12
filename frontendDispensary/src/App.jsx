@@ -8,6 +8,8 @@ import Footer from './components/Footer/footer';
 import Login from './pages/Login/login';
 import Stock from './pages/Stock/stock';
 import AdminDashboard from './pages/Admin/Dashboard/adminDashboard';
+import RegisterStudent from './pages/Admin/RegisterStudent/registerStudent';
+import ManageMedicine from './pages/Admin/ManageMedicine/manageMedicine';
 
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/stock' element={<Stock />} />
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
+        <Route path='/admin/register-student' element={<RegisterStudent />} />
+        <Route path='/admin/manage-medicine' element={<ManageMedicine />} />
       </Routes>
       <Footer />
     </div>
