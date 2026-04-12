@@ -3,6 +3,7 @@ import './adminDashboard.css'
 import Modal from '../../../components/Modal/modal'
 import ManageStaff from './ManageStaff/manageStaff'
 import ManageEvent from './ManageEvent/manageEvent'
+import { Link } from 'react-router-dom'
 const AdminDashboard = () => {
   const [manageStaffModal, setmanageStaffModal] = useState(false)
   const [eventModal, setEventModal] = useState(false)
@@ -26,8 +27,8 @@ const AdminDashboard = () => {
         </div>
 
         <div className='admin-dashboard-cards'>
-          <div className='admin-dashboard-card'>Register Student</div>
-          <div className='admin-dashboard-card'>Manage Medicines</div>
+          <Link to={'/admin/register-student'} className='admin-dashboard-card'>Register Student</Link>
+          <Link to={'/admin/manage-medicine'} className='admin-dashboard-card'>Manage Medicines</Link>
           <div className='admin-dashboard-card'>Records</div>
           <div className='admin-dashboard-card'>Facilities</div>
           <div className='admin-dashboard-card'>Near By Hospitals</div>
