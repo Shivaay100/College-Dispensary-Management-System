@@ -10,6 +10,7 @@ import Stock from './pages/Stock/stock';
 import AdminDashboard from './pages/Admin/Dashboard/adminDashboard';
 import RegisterStudent from './pages/Admin/RegisterStudent/registerStudent';
 import ManageMedicine from './pages/Admin/ManageMedicine/manageMedicine';
+import Record from './pages/Admin/Records/record';
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/register-student' element={<RegisterStudent />} />
         <Route path='/admin/manage-medicine' element={<ManageMedicine />} />
+        <Route path='/admin/record' element={<Record />} />
       </Routes>
       <Footer />
     </div>

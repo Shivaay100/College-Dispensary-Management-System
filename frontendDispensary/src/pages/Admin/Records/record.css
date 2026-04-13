@@ -1,0 +1,96 @@
+.records{
+    background-color: whitesmoke;
+    padding: 60px 100px;
+}
+
+.record-date-block{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.record-date-year{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.record-year{
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid;
+
+    &:hover{
+        background-color: #255674;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.active-stats{
+    background-color: #255674;
+    color: white;
+}
+
+.manageMedicine-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.report-form-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-form-row-block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.report-form-header {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1.5fr 1.5fr;
+    gap: 12px;
+    background-color: #255674;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    align-items: center;
+}
+
+.report-form-row {
+    display: grid;
+    grid-template-columns: 0.8fr 2fr 1.5fr 1.5fr;
+    gap: 12px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    align-items: center;
+    background: white;
+    
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}
+
+.col-1-mng {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.col-2-mng {
+    text-align: left;
+    word-break: break-word;
+}
+
+.col-3-mng {
+    text-align: left;
+    word-break: break-word;
+}
