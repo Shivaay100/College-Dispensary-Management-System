@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchBox from '../../../components/SearchBox/searchBox';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import Modal from '../../../components/Modal/modal';
+import RecordModal from './RecordModal/recordModal';
+
+
 
 
 function Record() {
@@ -11,9 +15,15 @@ function Record() {
   const [listOfYear, setListOfYear] = useState([]);
   const [listOfMonth, setListOfMonths] = useState([]);
   const currentYear = new Date().getFullYear();
+  const[modal,setModal] = useState(false);
+
+
 
   const [selectedYear, setSelectedYear] = useState("2026")
   const [selectedMonth, setSelectedMonth] = useState("")   
+  const onOffModal = ()=>{
+    setModal(prev=>!prev);
+  }
 
 
   const onchangeField = (value)=>{
@@ -49,6 +59,10 @@ function Record() {
     setSelectedMonth(pastAndCurrentMonths[pastAndCurrentMonths.length - 1]);
 
   }, []);
+
+    const handleOnOpenModal = ()=>{
+      setModal(prev=>!prev);
+    }
 
   return (
     <div className='record'>
@@ -106,8 +120,8 @@ function Record() {
                     </div>
                     <div className='report-form-row-block'>
                         <div className='report-form-row'>
-                            <div className='col-1-mng'><RemoveRedEyeIcon sx={{cursor:'pointer'}} /></div>
-                            <div className='col-2-mng'>shasshi</div>
+                            <div className='' onClick={() => handleOnOpenModal()} ><RemoveRedEyeIcon sx={{cursor:'pointer'}} /></div>
+                            <div className='col-2-mng'>shashi</div>
                             <div className='col-2-mng'>3260</div>
 
                             <div className='col-3-mng'>12-4-26</div>
@@ -123,6 +137,8 @@ function Record() {
                 </div>
             </div>
 
+          {modal &&  <Modal header="Records"handleClose={onOffModal} children={<RecordModal />} />}
+           
     </div>
 
   
