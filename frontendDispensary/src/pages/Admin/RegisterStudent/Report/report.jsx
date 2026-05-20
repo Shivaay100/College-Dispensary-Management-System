@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const Report = () => {
     const [searchMedicineName, setSearchmedicineName] = useState("")
     const [dropdown, setDropDown] = useState(false);
+    const[stocks,setStocks] = useState([]);
     // const [data, setData] = useState([])
     // const [selectedMedicine, setSelectedMedicine] = useState([]);
     const onChange = (value) => {

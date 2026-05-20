@@ -9,11 +9,11 @@ const RegisterStudent = () => {
     const [searchStudent, setSearchStudent] = useState("");
     const [reportModal, setReportModal] = useState(false)
 
-    // const [studentDetail, setStudentDetail] = useState({ _id: "",email:"" ,name: "", roll: "", mobileNo: "", fatherName: "", fatherMobile: "", address: "", previous_health: "", age: "", bloodGroup: "" });
+    const [studentDetail, setStudentDetail] = useState({ _id: "",email:"" ,name: "", roll: "", mobileNo: "", fatherName: "", fatherMobile: "", address: "", previous_health: "", age: "", bloodGroup: "" });
     
-    // const handleOnChangeInputField = (event, key) => {
-    //     setStudentDetail({ ...studentDetail, [key]: event.target.value })
-    // }
+     const handleOnChangeInputField = (event, key) => {
+       setStudentDetail({ ...studentDetail, [key]: event.target.value })
+     }
 
     const openCloseModal = ()=>{
         setReportModal(prev=>!prev)
@@ -40,34 +40,34 @@ const RegisterStudent = () => {
             <form className='register-form' onSubmit={handleSubmit}>
                 <div className='register-form-div'>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Student Name' />
+                        <input value={studentDetail.name} className='input-box-register' type="text" placeholder='Student Name' onChange={(e) => handleOnChangeInputField(e, "name")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="email" placeholder='Email' />
+                        <input value={studentDetail.email} className='input-box-register' type="email" placeholder='Email' onChange={(e) => handleOnChangeInputField(e, "email")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Registration No.' />
+                        <input value={studentDetail.roll} className='input-box-register' type="text" placeholder='Registration No.' onChange={(e) => handleOnChangeInputField(e, "roll")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Mobile No.' />
+                        <input value={studentDetail.mobileNo} className='input-box-register' type="text" placeholder='Mobile No.' onChange={(e) => handleOnChangeInputField(e, "mobileNo")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Fathers Name' />
+                        <input value={studentDetail.fatherName} className='input-box-register' type="text" placeholder='Fathers Name' onChange={(e) => handleOnChangeInputField(e, "fatherName")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Father Mobile No.' />
+                        <input value={studentDetail.fatherMobile} className='input-box-register' type="text" placeholder='Father Mobile No.' onChange={(e) => handleOnChangeInputField(e, "fatherMobile")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Address' />
+                        <input value={studentDetail.address} className='input-box-register' type="text" placeholder='Address' onChange={(e) => handleOnChangeInputField(e, "address")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Previous health issue' />
+                        <input value={studentDetail.previous_health} className='input-box-register' type="text" placeholder='Previous health issue' onChange={(e) => handleOnChangeInputField(e, "previous_health")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Age' />
+                        <input value={studentDetail.age} className='input-box-register' type="text" placeholder='Age' onChange={(e) => handleOnChangeInputField(e, "age")} />
                     </div>
                     <div className='register-input-box'> 
-                        <input className='input-box-register' type="text" placeholder='Blood Group' />
+                        <input value={studentDetail.bloodGroup} className='input-box-register' type="text" placeholder='Blood Group' onChange={(e) => handleOnChangeInputField(e, "bloodGroup")} />
                     </div>
 
                 </div>
