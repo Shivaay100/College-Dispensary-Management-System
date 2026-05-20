@@ -1,13 +1,15 @@
-import React from 'react'
+import React,{useState}from 'react'
 import './manageEvent.css'
 import DeleteIcon from '@mui/icons-material/Delete';
 const ManageEvent = () => {
-    return (
+    const [title, setTitle] = useState(" ");
+
+    return ( 
         <div className='add-staffs-box'>
             <form className='register-form'>
                 <div className=''>
                     <div className='register-input-box'>
-                        <input className='input-box-register mngEventInp' type="text" placeholder='Event Name' />
+                        <input value={title} className='input-box-register mngEventInp' type="text" placeholder='Event Name' onChange={(e) => setTitle(e.target.value)} />
                     </div>
 
                 </div>
