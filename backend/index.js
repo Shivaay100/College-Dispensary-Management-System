@@ -7,7 +7,7 @@ const app = express();
 
 
 app.use(express.json())
-require('./connection');
+
  app.use(cookieparser())
 
 // app.use(cors({
@@ -18,16 +18,16 @@ require('./connection');
  require('./connection');
 
  const userRoutes = require('./Routes/user');
-// const facilityRoutes = require('./Routes/facility')
-// const medicineRoutes = require('./Routes/medicine')
+ const facilityRoutes = require('./Routes/facility')
+ const medicineRoutes = require('./Routes/medicine')
 // const hopitalRoutes = require('./Routes/nearByHospital')
 // const notificationRoutes = require('./Routes/notification');
 // const gallaryRoutes = require('./Routes/gallary');
 // const historyRoutes = require('./Routes/history')
 
  app.use("/api/auth",userRoutes)
-// app.use("/api/facility",facilityRoutes)
-// app.use("/api/medicine",medicineRoutes)
+ app.use("/api/facility",facilityRoutes)
+ app.use("/api/medicine",medicineRoutes)
 // app.use("/api/hospital",hopitalRoutes)
 // app.use('/api/notification',notificationRoutes)
 // app.use('/api/gallary',gallaryRoutes)

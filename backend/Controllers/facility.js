@@ -21,6 +21,11 @@ exports.updateFacility = async(req,res)=>{
     try{
 
         
+      const {id} = req.params;
+      const facility = await FacilityModel.findByIdAndUpdate(id,{...req.body,addedBy:req.user._id});
+      return res.status(200).json({
+        message:"Facility Updated Successfully"
+      });
 
 
         // Watch Video For FUll Code
@@ -43,6 +48,13 @@ exports.updateFacility = async(req,res)=>{
 
 exports.getAllFacility = async(req,res)=>{
     try{
+
+        const facility = await FacilityModel.find().populate("addedBy","name").sort({createdAt:-1});
+
+        res.status(200).json({
+            message:"Facilities Fetched Successfully",
+            facility
+        })
 
         
 
@@ -69,6 +81,15 @@ exports.getAllFacility = async(req,res)=>{
 exports.deleteFacility = async(req,res)=>{
     try{
         const {id} = req.params;
+        const facility = await FacilityModel.findByIdAndDelete(id);
+        if(facility){
+            return res.status(200).json({
+                message:"Facility Deleted Successfully"
+            })
+        }
+        return res.status(400).json({
+            error:"No Such Facility Found"
+        });
         
 
 
