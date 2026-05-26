@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Authentication = require('../Authentication/auth');
-
 // Destructure the functions directly from your controller to make it cleaner
 const { 
     addFacility, 
