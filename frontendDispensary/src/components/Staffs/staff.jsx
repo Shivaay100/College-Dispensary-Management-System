@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import './staff.css'
 import TableComp from '../Table/tableComp'
+import axios from 'axios'
 
 const Staff = () => {
   const staffHeader = ["Name", "Designation", "Email Id", "Contact No."]
 
-  const rowData = [
-    {
-      name: "Shivam Kumar",
-      designation: "Manager",
-      email: "shivampaswan1215225@gmail.com",
-      contact: "9631491973"
-    }
-  ]
+  const [rowData,setRowData] = useState([])
+
+  const getFormattedData = (data) => {
+    let newarr = data.map((item) => {
+      return {
+        name: item.name,
+        designation: item.designation,
+        email: item.email,
+        contactNo: item.mobileNo
+      }
+    })
+    setRowData(newarr);
+  }
+  
+  const fetchData = async () => {
+      await axios.get('http://localhost:4000/api/auth/get-staff').then((respnse)=>{
+       
+        getFormattedData(respnse.data.staffs)
+      }).catch (err=> {
+        console.log(err)  
+      })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, []);
 
   return (
     <div className='staff'>

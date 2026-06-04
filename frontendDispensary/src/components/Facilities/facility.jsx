@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import './facility.css'
+import axios from 'axios';
 
 const Facility = () => {
   const facilities = [
@@ -28,6 +29,21 @@ const Facility = () => {
       desc: "Regular visits by specialist doctors (Dentist, Eye specialist, etc.)."
     }
   ];
+
+  const [data, setData] = useState([]);
+
+
+  const fetchData = async () => {
+    // props.showLoader()
+    await axios.get("http://localhost:4000/api/facility/get").then((response) => {
+      setData(response.data.facility);
+  }).catch((err) => {
+      console.log(err)
+    })
+}
+   useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <div className='facility'>
