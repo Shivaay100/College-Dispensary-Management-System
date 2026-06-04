@@ -1,25 +1,38 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './nearByHospitals.css'
 import TableComp from '../Table/tableComp'
+import axios from 'axios'
 
 const NearByHospitals = () => {
 
   const hospitalheaders = ["Sn No.", "Name", "Address", "Contact No."]
 
-  const rowData = [
-    {
-      sno: "1",
-      name: "Apollo Hospital",
-      address: "123 Main Street, Cityville",
-      contact: "9876543210"
-    },
-    {
-      sno: "2",
-      name: "City Medical Center",
-      address: "456 Elm Street, Townsville",
-      contact: "9123456780"
-    }
-  ]
+  const [rowData,setRowData] = useState([]);
+
+  const getFormattedData = (data) => {
+    let newarr = data.map((item, ind) => {
+      return {
+        srNo: ind+1,
+        name: item.name,
+        address: item.address,
+        contact: item.contact
+      }
+    })
+    setRowData(newarr);
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+    await axios.get('http://localhost:4000/api/hospital/get').then((response) => {
+      getFormattedData(response.data.hospitals)
+      //setRowData(response.data.hospitals);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+    fetchData()
+  }, [])
 
   return (
     <div className="nearby-container">

@@ -1,6 +1,6 @@
 import React ,{useState}from 'react'
 import './medicineModal.css'
-import { name } from 'ejs';
+// import { name } from 'ejs';
 const MedicineModal = () => {
 
     const [medicineName, setMedicineName] = useState({name:"",quantity:"",usage:""});
