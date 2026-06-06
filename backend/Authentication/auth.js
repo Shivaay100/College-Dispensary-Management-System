@@ -8,7 +8,7 @@ exports.studentAuth = async (req, res, next) => {
         const token = req.cookies.token;
         if(token){
             const decoded = jwt.verify(token, "Its_My_Secret_Key");
-            req.user = await UserModels.findById(decode.userId).select("-password");
+            req.user = await UserModels.findById(decoded.userId).select("-password");
             next();
 
         }else{
