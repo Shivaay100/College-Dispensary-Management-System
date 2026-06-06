@@ -3,7 +3,7 @@ import './nearByHospitals.css'
 import TableComp from '../Table/tableComp'
 import axios from 'axios'
 
-const NearByHospitals = () => {
+const NearByHospitals = (props) => {
 
   const hospitalheaders = ["Sn No.", "Name", "Address", "Contact No."]
 
@@ -22,12 +22,14 @@ const NearByHospitals = () => {
   }
 
   useEffect(() => {
+    props.showLoader()
     const fetchData = async () => {
     await axios.get('http://localhost:4000/api/hospital/get').then((response) => {
       getFormattedData(response.data.hospitals)
-      //setRowData(response.data.hospitals);
     }).catch((err) => {
       console.log(err);
+    }).finally(() => {
+      props.hideLoader()
     })
   }
 
