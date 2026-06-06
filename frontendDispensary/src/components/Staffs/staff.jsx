@@ -3,7 +3,7 @@ import './staff.css'
 import TableComp from '../Table/tableComp'
 import axios from 'axios'
 
-const Staff = () => {
+const Staff = (props) => {
   const staffHeader = ["Name", "Designation", "Email Id", "Contact No."]
 
   const [rowData,setRowData] = useState([])
@@ -21,11 +21,14 @@ const Staff = () => {
   }
   
   const fetchData = async () => {
+      props.showLoader();
       await axios.get('http://localhost:4000/api/auth/get-staff').then((respnse)=>{
        
         getFormattedData(respnse.data.staffs)
       }).catch (err=> {
         console.log(err)  
+      }).finally(()=>{
+        props.hideLoader()
       })
   }
 

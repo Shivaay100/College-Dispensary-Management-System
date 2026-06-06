@@ -41,13 +41,13 @@ const Home = (props) => {
             case "About":
                 return <AboutUs />;
             case "Staff":
-                return <Staff />;
+                return <Staff showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "Facility":
-                return <Facility />;
+                return <Facility showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "NearByHospitals":
-                return <NearByHospitals />;
+                return <NearByHospitals showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             case "Gallary":
-                return <Gallary />;
+                return <Gallary showLoader={props.showLoader} hideLoader={props.hideLoader} />;
             default:
                 return null;
         }

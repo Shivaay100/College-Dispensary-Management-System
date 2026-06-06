@@ -1,8 +1,8 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './facility.css'
 import axios from 'axios';
 
-const Facility = () => {
+const Facility = (props) => {
   const facilities = [
     {
       title: "Ambulance",
@@ -34,14 +34,16 @@ const Facility = () => {
 
 
   const fetchData = async () => {
-    // props.showLoader()
+    props.showLoader()
     await axios.get("http://localhost:4000/api/facility/get").then((response) => {
       setData(response.data.facility);
-  }).catch((err) => {
+    }).catch((err) => {
       console.log(err)
+    }).finally(() => {
+      props.hideLoader()
     })
-}
-   useEffect(() => {
+  }
+  useEffect(() => {
     fetchData();
   }, [])
 
