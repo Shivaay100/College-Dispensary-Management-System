@@ -1,34 +1,52 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './header.css'
 import logo from '../../assets/MNNIT_LOGO_img.jpg'
 import banner from '../../assets/Cover-image1.jpg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
-const Header = () => {
+const Header = (props) => {
 
   const location = useLocation();
-  const[eventpopup,setEventpopup] = useState(false);
-  const[helpline,setHelpline] = useState(false);
+  const navigate = useNavigate();
+  const [eventpopup, setEventpopup] = useState(false);
+  const [helpline, setHelpline] = useState(false);
 
   const handleOpenPopup = (popup) => {
     if (popup === "event") {
-        setEventpopup(true);
+      setEventpopup(true);
     } else {
-        setHelpline(true)
+      setHelpline(true)
     }
-}
-
-
-const handleClosePopup = (popup) => {
-  if (popup === "event") {
-      setEventpopup(false);
-  } else {
-      setHelpline(false)
   }
-}
 
 
+  const handleClosePopup = (popup) => {
+    if (popup === "event") {
+      setEventpopup(false);
+    } else {
+      setHelpline(false)
+    }
+  }
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
+  const handleLogout = async () => {
+    props.showLoader();
+    await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true }).then((response) => {
+      console.log(response)
+      localStorage.clear();
+      props.handleLogin(false);
+      navigate('/')
+    }).catch((err) => {
+      console.log(err);
+    }).finally(() => {
+      props.hideLoader();
+    })
+  }
 
 
 
@@ -41,7 +59,7 @@ const handleClosePopup = (popup) => {
 
         {/* Left - Logo + Name */}
         <div className='header-college-details-left-logo'>
-          <img src={logo} alt='College Logo'/>
+          <img src={logo} alt='College Logo' />
           <div>
             <div className='header-college-details-name'>मोतीलाल नेहरू राष्ट्रीय प्रौद्योगिकी संस्थान</div>
             <div className='header-college-details-place-red'>इलाहाबाद</div>
@@ -73,42 +91,44 @@ const handleClosePopup = (popup) => {
 
       {/* ✅ Row 2 - Navbar OUTSIDE header-college-details */}
       <div className='navbar'>
-        <Link to={'/'} className={`navbar-links ${location.pathname==="/"?'active-link':null}`}>Home</Link>
-        <Link to={'/login'} className={`navbar-links ${location.pathname==="/login"?'active-link':null}`}>Login</Link>
-        <Link to={'/stock'} className={`navbar-links ${location.pathname==="/stock"?'active-link':null}`}>Stock View</Link>
+        <Link to={'/'} className={`navbar-links ${location.pathname === "/" ? 'active-link' : null}`}>Home</Link>
+        <div onClick={props.isLogin ? handleLogout : handleLogin} className={`navbar-links ${location.pathname === "/login" ? 'active-link' : null}`}>
+          {props.isLogin ? "Logout" : "Login"}
+        </div>
+        <Link to={'/stock'} className={`navbar-links ${location.pathname === "/stock" ? 'active-link' : null}`}>Stock View</Link>
         <div className='navbar-links event-link' onMouseEnter={() => handleOpenPopup("event")} onMouseLeave={() => handleClosePopup("event")}>
-          <div className = 'navbar-link-opt'> New Events <ArrowDropDownIcon/></div>
-         
+          <div className='navbar-link-opt'> New Events <ArrowDropDownIcon /></div>
+
           {
-            eventpopup &&  <div className ='navbar-dropdown-popup event-pop'>
-            <div className='popup-notification'>. Christmas Celebration</div>
-            <div className ='popup-notification'>. Diwali Celebration</div>
-  
-  
-           </div>
+            eventpopup && <div className='navbar-dropdown-popup event-pop'>
+              <div className='popup-notification'>. Christmas Celebration</div>
+              <div className='popup-notification'>. Diwali Celebration</div>
+
+
+            </div>
           }
 
         </div>
         <div className='navbar-links event-link' onMouseEnter={() => handleOpenPopup("helpline")} onMouseLeave={() => handleClosePopup("helpline")}>
-          <div className='navbar-link-opt'>HelpLine <ArrowDropDownIcon/></div>
-          
+          <div className='navbar-link-opt'>HelpLine <ArrowDropDownIcon /></div>
+
           {
             helpline && <div className='navbar-dropdown-popup helpline-pop'>
-            <div className='popup-notification'>Disaster management: 1007</div>
+              <div className='popup-notification'>Disaster management: 1007</div>
 
-          </div>
+            </div>
           }
-          
-          </div>
+
+        </div>
       </div>
 
       {
-        location.pathname==="/" && <div className='header-banner'>
-    <img src={banner} alt='MNNIT Banner' className='header-banner-image'/>
-</div>
+        location.pathname === "/" && <div className='header-banner'>
+          <img src={banner} alt='MNNIT Banner' className='header-banner-image' />
+        </div>
       }
 
-
+      <ToastContainer />
     </div>
   )
 }

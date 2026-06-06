@@ -22,13 +22,13 @@ import GlobalLoader from './components/GlobalLoader/globalLoader';
 function App() {
 
   const [loader, setLoader] = useState(false);
-  // const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
   // let role = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")).role : null;
   // let id = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo"))._id : null;
 
-  // const handleLogin = (value) => {
-  //   setIsLogin(value)
-  // }
+  const handleLogin = (value) => {
+    setIsLogin(value)
+  }
 
   const showLoader = () => {
     setLoader(true);
@@ -40,17 +40,17 @@ function App() {
 
   return (
     <div className="App">
-     <Header />
+     <Header isLogin={isLogin} showLoader={showLoader} handleLogin={handleLogin} hideLoader={hideLoader} />
       <Routes>
         <Route path='/' element={<Home showLoader={showLoader} hideLoader={hideLoader} />} />
-        <Route path='/login' element={<Login showLoader={showLoader} hideLoader={hideLoader} />} />
+        <Route path='/login' element={<Login handleLogin={handleLogin} showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/stock' element={<Stock showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/dashboard' element={<AdminDashboard showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/register-student' element={<RegisterStudent showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/manage-medicine' element={<ManageMedicine showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/record' element={<Record showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/facility' element={<Facility showLoader={showLoader} hideLoader={hideLoader} />} />
-        <Route path='/admin/nearByHospital' element={<NearByHospital />} />
+        <Route path='/admin/nearByHospital' element={<NearByHospital showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/admin/gallery' element={<AdminGallery showLoader={showLoader} hideLoader={hideLoader} />} />
         <Route path='/student/:id' element={<StudentDashboard showLoader={showLoader} hideLoader={hideLoader} />} />
       </Routes>
