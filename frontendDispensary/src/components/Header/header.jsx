@@ -13,6 +13,7 @@ const Header = (props) => {
   const navigate = useNavigate();
   const [eventpopup, setEventpopup] = useState(false);
   const [helpline, setHelpline] = useState(false);
+   const [events, setEvenets] = useState([]);
 
   const handleOpenPopup = (popup) => {
     if (popup === "event") {
@@ -21,6 +22,23 @@ const Header = (props) => {
       setHelpline(true)
     }
   }
+
+  const fetchEvents = async () => {
+    await axios.get("http://localhost:4000/api/notification/get").then((response) => {
+      console.log("fetching data")
+      setEvenets(response.data.notifications)
+    })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+    useEffect(() => {
+        if (eventpopup) {
+            fetchEvents()
+
+        }
+    }, [eventpopup])
 
 
   const handleClosePopup = (popup) => {
@@ -101,8 +119,11 @@ const Header = (props) => {
 
           {
             eventpopup && <div className='navbar-dropdown-popup event-pop'>
-              <div className='popup-notification'>. Christmas Celebration</div>
-              <div className='popup-notification'>. Diwali Celebration</div>
+             {
+              events.map((item, ind) => {
+                return <div className='popup-notification' >{item.title}</div>
+              } )
+             }
 
 
             </div>
