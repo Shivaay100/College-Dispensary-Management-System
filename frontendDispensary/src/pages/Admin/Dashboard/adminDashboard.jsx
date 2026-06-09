@@ -4,7 +4,7 @@ import Modal from '../../../components/Modal/modal'
 import ManageStaff from './ManageStaff/manageStaff'
 import ManageEvent from './ManageEvent/manageEvent'
 import { Link } from 'react-router-dom'
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
   const [manageStaffModal, setmanageStaffModal] = useState(false)
   const [eventModal, setEventModal] = useState(false)
   const openCloseModal = (value) => {
@@ -21,7 +21,7 @@ const AdminDashboard = () => {
         <div className='welcome-header'>
           <div className='welcome-admin'>Welcome To Admin Panel</div>
           <div className='welcome-admin-right-side'>
-            <div className='manage-staff-btn' onClick={()=>{openCloseModal("staff")}}>Manage Staffs</div>
+            {userInfo?.role === "admin" && <div className='manage-staff-btn' onClick={()=>{openCloseModal("staff")}}>Manage Staffs</div>}
             <div className='manage-staff-btn' onClick={()=>{openCloseModal("event")}}>Events</div>
           </div>
         </div>
@@ -34,8 +34,8 @@ const AdminDashboard = () => {
           <Link to={'/admin/nearByHospital'} className='admin-dashboard-card'>Near By Hospitals</Link>
           <Link to={'/admin/gallery'} className='admin-dashboard-card'>Gallery</Link>
         </div>
-         {manageStaffModal && <Modal value={"staff"} handleClose={() => openCloseModal("staff")} header={"Manage Staffs"} children={<ManageStaff/>} />}
-         {eventModal && <Modal value={"event"} handleClose={() => openCloseModal("event")} header={"Manage Events"} children={<ManageEvent/>} />}
+         {manageStaffModal && <Modal value={"staff"} handleClose={() => openCloseModal("staff")} header={"Manage Staffs"} children={<ManageStaff showLoader={props.showLoader} hideLoader={props.hideLoader}/>} />}
+         {eventModal && <Modal value={"event"} handleClose={() => openCloseModal("event")} header={"Manage Events"} children={<ManageEvent showLoader={props.showLoader} hideLoader={props.hideLoader}/>} />}
     </div>
   )
 }
