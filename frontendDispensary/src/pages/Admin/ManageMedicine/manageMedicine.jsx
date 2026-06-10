@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './manageMedicine.css'
 import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -7,40 +7,67 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Modal from '../../../components/Modal/modal';
 import MedicineModal from './MedicineModal/medicineModal';
-const ManageMedicine = () => {
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+const ManageMedicine = (props) => {
     const [medicineSearch, setMedicineSearch] = useState("")
     const [addModal, setAddModal] = useState(false);
-    // const [clickedMedicine,setClickedMedicine] = useState(null)
+    const [clickedMedicine, setClickedMedicine] = useState(null)
 
-    // const [data, setData] = useState([])
+    const [data, setData] = useState([])
 
     const onOffmodal = () => {
-        // if(addModal){
-        //     setClickedMedicine(null)
-        // }
+        if (addModal) {
+            setClickedMedicine(null)
+        }
         setAddModal(prev => !prev)
     }
 
     const onChangeValue = (value) => {
         setMedicineSearch(value)
     }
-    //  const handleEdit = (item)=>{
-    //     setClickedMedicine(item)
-    //     setAddModal(true)
-    // }
 
-    // const filterOutMedicine = (id)=>{
-    //     let newArr = data.filter((item)=>item._id!==id);
-    //     setData(newArr)
-    // }
-    //  useEffect(() => {
+    const fetchData = async () => {
+        props.showLoader();
+        await axios.get(`http://localhost:4000/api/medicine/search?name=${medicineSearch}`).then((resp) => {
+            console.log(resp)
+            setData(resp.data.medicines)
+        }).catch(err => {
+            toast.error(err?.response?.data?.error)
+        }).finally(() => {
+            props.hideLoader()
+        })
+    }
 
-    //     fetchData()
-    // }, [medicineSearch])
+    const handleEdit = (item) => {
+        setClickedMedicine(item)
+        setAddModal(true)
+    }
+
+    const filterOutMedicine = (id) => {
+        let newArr = data.filter((item) => item._id !== id);
+        setData(newArr)
+    }
+
+    const handleDelete = async (id) => {
+        props.showLoader()
+        await axios.delete(`http://localhost:4000/api/medicine/delete/${id}`, { withCredentials: true }).then((response) => {
+            filterOutMedicine(id)
+        }).catch((err) => {
+            toast.error(err?.response?.data?.error)
+        }).finally(() => {
+            props.hideLoader()
+        })
+    }
+
+    useEffect(() => {
+
+        fetchData()
+    }, [medicineSearch])
     return (
         <div className='manageMedicine'>
             <div className='go-back'>
-                <Link to={'.admin/register-student'}><ArrowBackIcon />
+                <Link to={'/admin/dashboard'}><ArrowBackIcon />
                     Back To Dashboard</Link>
             </div>
             <div className='top-manage-medicine'>
@@ -60,27 +87,36 @@ const ManageMedicine = () => {
                         <div className=''>Delete</div>
                     </div>
                     <div className='report-form-row-block'>
-                        <div className='report-form-row'>
-                            <div className=''>2</div>
-                            <div className='col-2-mng'>Paracetamol</div>
-                            <div className='col-2-mng'>Saurav</div>
+                        {
+                            data.map((item, index) => {
+                                return (
+                                    <div className='report-form-row'>
+                                        <div className=''>{index + 1}</div>
+                                        <div className='col-2-mng'>{item.name}</div>
+                                        <div className='col-2-mng'>{item?.addedBy?.name}</div>
 
-                            <div className='col-3-mng'>12</div>
-                            <div className=' edit-icon '><EditIcon /></div>
-                            <div className='delete-icon'><DeleteIcon /></div>
+                                        <div className='col-3-mng'>{item.quantity}</div>
+                                        <div onClick={() => handleEdit(item)} className='edit-icon'><EditIcon /></div>
+                                        <div onClick={() => handleDelete(item._id)} className='delete-icon'><DeleteIcon /></div>
 
-                        </div>
-                        <div className='report-form-row'>
-                            <div className=''>No Any Medicine Yet</div>
+                                    </div>
+                                );
+                            })
+                        }
+                        {
+                            data.length === 0 && <div className='report-form-row'>
+                                <div className=''>No Any Medicine Yet</div>
 
-                        </div>
+                            </div>
+                        }
 
                     </div>
                 </div>
             </div>
             {
-                addModal && <Modal handleClose={onOffmodal} header="Add Medicine" children={<MedicineModal />} />
+                addModal && <Modal header="Add Medicine" handleClose={onOffmodal} children={<MedicineModal clickedMedicine={clickedMedicine} showLoader={props.showLoader} hideLoader={props.hideLoader} />} />
             }
+            <ToastContainer />
         </div>
     )
 }

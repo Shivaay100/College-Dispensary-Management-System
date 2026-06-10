@@ -30,7 +30,7 @@ const RegisterStudent = () => {
     
     <div className='register-student'>
         <div className='go-back'>
-            <Link to={'.admin/register-student'}><ArrowBackIcon />
+            <Link to={'/admin/dashboard'}><ArrowBackIcon />
             Back To Dashboard</Link>
         </div>
 
