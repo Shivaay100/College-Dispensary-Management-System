@@ -10,10 +10,12 @@ import Staff from '../../components/Staffs/staff';
 import Facility from '../../components/Facilities/facility';
 import NearByHospitals from '../../components/NearByHospitals/nearByHospitals';
 import Gallary from '../../components/Gallary/gallary';
+import { Link } from 'react-router-dom';
 
 const Home = (props) => {
     const [page, setPage] = useState("About")
     let [rightSideHeader, setRightSideHeader] = useState("About Us");
+    let userInfo = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
 
     const handleChangeTab = (pagename) => {
         setPage(pagename);
@@ -58,6 +60,12 @@ const Home = (props) => {
             <div className='home-block'>
                 <div className='home-left-page'>
 
+                    {
+                        userInfo?.role === 'admin' && <Link to='/admin/dashboard' className={`home-left-option`} >
+                            <HomeIcon /> Dashboard
+                        </Link>
+                    }
+
                     <div className={`home-left-option ${page === "About" ? "active-opt" : ""}`} onClick={() => handleChangeTab("About")}>
                         <HomeIcon /> About Us
                     </div>
@@ -89,8 +97,8 @@ const Home = (props) => {
                     </div>
                 </div>
 
-            </div>  
-        </div>  
+            </div>
+        </div>
     )
 }
 
