@@ -6,12 +6,57 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Modal from '../../../components/Modal/modal';
 import FacilityModal from './FacilityModal/facilityModal';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 
-const Facility = () => {
-    const [modal, setShowModal] = useState(false)
+const Facility = (props) => {
+    const [modal, setModal] = useState(false)
+    const [data, setData] = useState([]);
+    const [clickedItem, setClickedItem] = useState(null)
 
-    const onOFModal = () => setShowModal(prev => !prev)
+    const onOFModal = () => {
+        if (modal) {
+            setClickedItem(null)
+        }
+        setModal(prev => !prev)
+    }
+
+    const fetchData = async () => {
+        props.showLoader();
+        await axios.get('http://localhost:4000/api/facility/get').then((resp) => {
+            setData(resp.data.facility);
+        }).catch(err => {
+            toast.error(err?.response?.data?.error)
+        }).finally(() => {
+            props.hideLoader()
+        })
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    const handleEdit = (item) => {
+        setClickedItem(item)
+        setModal(true)
+
+    }
+
+    const filterOutData = (id) => {
+        let newArr = data.filter((item) => item._id !== id);
+        setData(newArr);
+    }
+    const handleDelete = async (id) => {
+        props.showLoader()
+        await axios.delete(`http://localhost:4000/api/facility/delete/${id}`, { withCredentials: true }).then((resp) => {
+            filterOutData(id)
+        }).catch(err => {
+            toast.error(err?.response?.data?.error)
+        }).finally(() => {
+            props.hideLoader()
+        })
+    }
 
     return (
         <div className='admin-facility'>
@@ -23,28 +68,32 @@ const Facility = () => {
             </div>
 
             <div className='admin-facility-rows'>
-                <div className='admin-facility-row'>
-                    <div className='admin-facility-left'>
-                        <div className='admin-facility-title'>Title</div>
-                        <div className='admin-facility-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</div>
-                        <div style={{marginTop:"10px"}}> Added By: Shashi </div>
-                    </div>
-
-                    <div className='admin-facility-right'>
-                        <div className='admin-facility-btns'>
-                            <EditIcon />
-                            <DeleteIcon />
-                        </div>
-                    </div>
-                </div>
+                {
+                    data.map((item) => {
+                        return (
+                            <div className='admin-facility-row'>
+                                <div className='admin-facility-left'>
+                                    <div className='admin-facility-title'>{item.title}</div>
+                                    <div>{item.description}</div>
+                                    <div style={{ marginTop: "10px" }}> Added By: {item?.addedBy?.name} </div>
+                                </div>
+                                    <div className='admin-facility-btns'>
+                                        <div onClick={() => handleEdit(item)}><EditIcon /></div>
+                                        <div onClick={() => handleDelete(item._id)}><DeleteIcon /></div>
+                                    </div>
+                                </div>
+                        );
+                    })
+                }
             </div>
-            {modal && <Modal header={"Add Facility"} value={"add-facility"} handleClose={onOFModal} children={<FacilityModal />} />}
-            
+             {modal && <Modal headers="Add Facility" handleClose={onOFModal} children={<FacilityModal clickedItem={clickedItem} />} />}
+            <ToastContainer />
+
         </div>
 
 
 
-           
+
     )
 }
 
