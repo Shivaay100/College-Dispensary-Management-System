@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './nearByHospital.css'
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -24,7 +24,7 @@ const NearByHospital = (props) => {
 
     const fetchData = async () => {
         props.showLoader();
-        await axios.get('http://localhost:4000/api/hospital/get').then((resp) => {
+        await axios.get('${import.meta.env.VITE_API_URL}/api/hospital/get').then((resp) => {
             setData(resp.data.hospitals)
             console.log(resp)
         }).catch(err => {
@@ -50,7 +50,7 @@ const NearByHospital = (props) => {
 
     const handleDelete = async (id) => {
         props.showLoader();
-        await axios.delete(`http://localhost:4000/api/hospital/delete/${id}`, { withCredentials: true }).then((resp) => {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/hospital/delete/${id}`, { withCredentials: true }).then((resp) => {
             filterOutData(id)
         }).catch(err => {
             toast.error(err?.response?.data?.error)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './manageStaff.css'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,7 +21,7 @@ const ManageStaff = (props) => {
 
     const fetchData = async () => {
         props.showLoader()
-        await axios.get('http://localhost:4000/api/auth/get-staff').then((respnse)=>{
+        await axios.get('${import.meta.env.VITE_API_URL}/api/auth/get-staff').then((respnse)=>{
             setStaffs(respnse.data.staffs)
         }).catch (err=> {
             console.log(err)  
@@ -35,7 +35,7 @@ const ManageStaff = (props) => {
 
     const handleUpdate = async () => {
 
-        await axios.put(`http://localhost:4000/api/auth/update-staff/${clickedStaff?._id}`, inputFields, { withCredentials: true }).then(response => {
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/update-staff/${clickedStaff?._id}`, inputFields, { withCredentials: true }).then(response => {
             window.location.reload();
         }).catch(err => {
             toast.error(err?.response?.data?.error)
@@ -53,7 +53,7 @@ const ManageStaff = (props) => {
 
         if (inputFields.name.trim().length === 0 || inputFields.email.trim().length === 0 || inputFields.password.trim().length === 0 || inputFields.designation.trim().length === 0 || inputFields.mobileNumber.trim().length === 0) return toast.error("Please fill all the details.");
         props.showLoader()
-        await axios.post("http://localhost:4000/api/auth/add-staff", inputFields, { withCredentials: true }).then((response) => {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/add-staff`, inputFields, { withCredentials: true }).then((response) => {
             toast.success(response.data.message)
             setStaffs([inputFields, ...staff])
             setInputFields({ name: "", email: "", password: "", designation: "", mobileNumber: "" })
@@ -76,7 +76,7 @@ const ManageStaff = (props) => {
     }
 
     const handleDelete = async (id) => {
-        await axios.delete(`http://localhost:4000/api/auth/delete-staff/${id}`, { withCredentials: true }).then((response) => {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/delete-staff/${id}`, { withCredentials: true }).then((response) => {
            filterOutData(id)
         }).catch((err) => {
             toast.error(err?.response?.data?.error)

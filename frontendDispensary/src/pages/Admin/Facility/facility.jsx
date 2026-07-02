@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './facility.css'
 import { Link } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,7 +24,7 @@ const Facility = (props) => {
 
     const fetchData = async () => {
         props.showLoader();
-        await axios.get('http://localhost:4000/api/facility/get').then((resp) => {
+        await axios.get('${import.meta.env.VITE_API_URL}/api/facility/get').then((resp) => {
             setData(resp.data.facility);
         }).catch(err => {
             toast.error(err?.response?.data?.error)
@@ -49,7 +49,7 @@ const Facility = (props) => {
     }
     const handleDelete = async (id) => {
         props.showLoader()
-        await axios.delete(`http://localhost:4000/api/facility/delete/${id}`, { withCredentials: true }).then((resp) => {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/facility/delete/${id}`, { withCredentials: true }).then((resp) => {
             filterOutData(id)
         }).catch(err => {
             toast.error(err?.response?.data?.error)

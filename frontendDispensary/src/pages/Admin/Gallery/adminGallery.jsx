@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './adminGallery.css'
 import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -29,7 +29,7 @@ const AdminGallary = (props) => {
     const fetchData = async () => {
         props.showLoader();
         {
-         await axios.get('http://localhost:4000/api/gallery/getAllGallery').then((resp) => {
+         await axios.get('${import.meta.env.VITE_API_URL}/api/gallery/getAllGallery').then((resp) => {
 console.log(resp)
             setData(resp.data.images)  
         }).catch(err => {

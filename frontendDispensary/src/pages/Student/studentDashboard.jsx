@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './studentDashboard.css'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Modal from '../../components/Modal/modal';
@@ -15,7 +15,7 @@ const StudentDashboard = (props) => {
     const fetchData = async () => {
         props.showLoader();
 
-        await axios.get(`http://localhost:4000/api/history/get?roll=${userInfo?.roll}`, { withCredentials: true }).then(resp => {
+        await axios.get(`${import.meta.env.VITE_API_URL}/api/history/get?roll=${userInfo?.roll}`, { withCredentials: true }).then(resp => {
             console.log(resp)
             setHistory(resp.data.history)
         }).catch(err => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import './login.css'
 import { toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
@@ -31,7 +31,7 @@ const Login = (props) => {
     if (loginField.email.trim() === "" || loginField.password.trim() === "") return toast.error("Please enter the credentials");
     props.showLoader();
 
-    await axios.post("http://localhost:4000/api/auth/login", loginField, { withCredentials: true }).then((response) => {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, loginField, { withCredentials: true }).then((response) => {
       console.log(response)
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
@@ -54,7 +54,7 @@ const Login = (props) => {
     if (registerField.name.trim() === "" || registerField.email.trim() === "" || registerField.password.trim() === "" || registerField.regNumber.trim() === "") return toast.error("Please enter the credentials");
     if (registerField.name.length < 3) return toast.error("Name should be at least 3 characters long")
     props.showLoader();
-    await axios.post("http://localhost:4000/api/auth/register", registerField).then((response) => {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, registerField).then((response) => {
       toast.success("Registration successful")
       // setRegisterField({ name: "", email: "", password: "", regNumber: "" })
     }).catch((err) => {

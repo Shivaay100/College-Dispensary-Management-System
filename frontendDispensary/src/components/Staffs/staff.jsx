@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+﻿import React, { use, useEffect, useState } from 'react'
 import './staff.css'
 import TableComp from '../Table/tableComp'
 import axios from 'axios'
@@ -22,7 +22,7 @@ const Staff = (props) => {
   
   const fetchData = async () => {
       props.showLoader();
-      await axios.get('http://localhost:4000/api/auth/get-staff').then((respnse)=>{
+      await axios.get('${import.meta.env.VITE_API_URL}/api/auth/get-staff').then((respnse)=>{
        
         getFormattedData(respnse.data.staffs)
       }).catch (err=> {

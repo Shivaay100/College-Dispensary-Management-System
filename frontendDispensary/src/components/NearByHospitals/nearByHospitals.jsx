@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+﻿import React,{useState,useEffect} from 'react'
 import './nearByHospitals.css'
 import TableComp from '../Table/tableComp'
 import axios from 'axios'
@@ -24,7 +24,7 @@ const NearByHospitals = (props) => {
   useEffect(() => {
     props.showLoader()
     const fetchData = async () => {
-    await axios.get('http://localhost:4000/api/hospital/get').then((response) => {
+    await axios.get('${import.meta.env.VITE_API_URL}/api/hospital/get').then((response) => {
       getFormattedData(response.data.hospitals)
     }).catch((err) => {
       console.log(err);

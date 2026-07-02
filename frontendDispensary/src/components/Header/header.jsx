@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './header.css'
 import logo from '../../assets/MNNIT_LOGO_img.jpg'
 import banner from '../../assets/Cover-image1.jpg'
@@ -24,7 +24,7 @@ const Header = (props) => {
   }
 
   const fetchEvents = async () => {
-    await axios.get("http://localhost:4000/api/notification/get").then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/api/notification/get`).then((response) => {
       console.log("fetching data")
       setEvenets(response.data.notifications)
     })
@@ -54,7 +54,7 @@ const Header = (props) => {
   }
   const handleLogout = async () => {
     props.showLoader();
-    await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true }).catch((err) => {
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {}, { withCredentials: true }).catch((err) => {
       console.log(err);
     }).finally(() => {
       localStorage.clear();

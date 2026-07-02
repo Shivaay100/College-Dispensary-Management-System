@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+﻿import React, { useState,useEffect } from 'react'
 import './report.css'
 import SearchBox from '../../../../components/SearchBox/searchBox'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -17,7 +17,7 @@ const Report = (props) => {
     
     const fetchData = async () => {
        
-        await axios.get(`http://localhost:4000/api/medicine/search?name=${searchMedicineName}`).then((resp) => {
+        await axios.get(`${import.meta.env.VITE_API_URL}/api/medicine/search?name=${searchMedicineName}`).then((resp) => {
             console.log(resp)
             setData(resp.data.medicines)
           
@@ -85,7 +85,7 @@ const Report = (props) => {
         }
         if(checkInputValid()){
             return toast.error("Please fill in all required fields.")
-            await axios.post(`http://localhost:4000/api/history/add`,{roll: props.studentDetail.roll,student: props.studentDetail._id,medicines: selectedMedicine}, {withCredentials:true  }).then((response)=>{
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/history/add`,{roll: props.studentDetail.roll,student: props.studentDetail._id,medicines: selectedMedicine}, {withCredentials:true  }).then((response)=>{
                 
                 toast.success(response.data.message);
                 setTimeout(()=>{

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+﻿import React, { useState,useEffect } from 'react'
 import './facilityModal.css'
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -17,7 +17,7 @@ const FacilityModal = (props) => {
         }
     }, [])
     const updateFacility = async () => {
-        await axios.put(`http://localhost:4000/api/facility/update/${props.clickedItem._id}`, inputFields, { withCredentials: true }).then((resp) => {
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/facility/update/${props.clickedItem._id}`, inputFields, { withCredentials: true }).then((resp) => {
             window.location.reload();
         }).catch(err => {
             toast.error(err?.response?.data?.error)
@@ -34,7 +34,7 @@ const FacilityModal = (props) => {
             updateFacility();
             return;
         }
-        await axios.post('http://localhost:4000/api/facility/add', inputFields, { withCredentials: true }).then((resp) => {
+        await axios.post('${import.meta.env.VITE_API_URL}/api/facility/add', inputFields, { withCredentials: true }).then((resp) => {
             window.location.reload();
         }).catch(err => {
             toast.error(err?.response?.data?.error)
