@@ -10,11 +10,18 @@ const SearchBox = (props) => {
             props.onChange(event.target.value);
         }
     }
+
+    const handleClick = () => {
+        if (props.handleClick) {
+            props.handleClick();
+        }
+    }
+
   return (
     <div className='page-searchBox'>
         <input className='input-box' value={value} onChange={(event)=>handleOnChange(event)} placeholder={placeholder} />
-            <div className='search-btn'>
-                <SearchIcon />
+            <div className='search-btn' onClick={handleClick}>
+                <SearchIcon /> 
             </div>
     </div>
   )

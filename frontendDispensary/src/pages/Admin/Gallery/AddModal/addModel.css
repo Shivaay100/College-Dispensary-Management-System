@@ -4,7 +4,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,7 +23,7 @@
 .modal-add-btns{
     display: flex;
     margin-top: 20px;
-    gap: 10px;
+    gap: 30px;
 }
 
 .cancel-modal-btn{
@@ -34,6 +33,7 @@
     justify-content: center;
     border: 1px solid;
     border-radius: 5px;
+    width: 70px;
     color: white;
     cursor: pointer;
     background-color: #255674;
@@ -44,26 +44,4 @@
 
 .cancel-file{
     display: none;
-}
-
-.selected-file-name{
-    margin-top: 12px;
-    font-size: 14px;
-    color: #255674;
-    word-break: break-all;
-}
-
-.add-modal-btn{
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    background-color: #255674;
-    &:hover{
-        background-color: #2c98dc;
-    }
 }

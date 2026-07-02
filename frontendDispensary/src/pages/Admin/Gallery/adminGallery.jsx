@@ -1,74 +1,78 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './adminGallery.css'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddModel from './AddModal/addModel';
+import AddModal from './AddModal/addModel';
 import DeleteModal from './DeleteModal/deleteModal';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+const AdminGallary = (props) => {
 
-function AdminGallery() {
-
-  const [addModal, setShowModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const setAddModalFunc = () => setShowModal(prev => !prev);
-  const openDeleteModal = (index) => { setSelectedIndex(index); setDeleteModal(true); };
-  const closeDeleteModal = () => { setSelectedIndex(null); setDeleteModal(false); };
-  const [images, setImages] = useState([
-    {
-      src: "https://www.mnnit.ac.in/newhc/images/demo/h.jpg",
-      title: "Hospital"
-    },
-    {
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdW_5hDVAmKiZ77___NlgbFLTl4xaTOKukg&s",
-      title: "Reception"
-    },
-    {
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBUYn8UCDQntrEUQGIWvuamONpBcTU3eCkYQ&s",
-      title: "Doctors"
-    },
-    {
-      src: "https://www.mnit.ac.in/facilities/images/dispensary/dispensary3.jpg",
-      title: "Rooms"
-    },
-    {
-      src: "https://content.jdmagicbox.com/comp/allahabad/z4/0532px532.x532.220716202432.q4z4/catalogue/mnnit-dispensary-allahabad-city-allahabad-clinics-xAE62Iq6Xx-250.jpg",
-      title: "Interior"
-    },
-    {
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Ij5B7pNZB_x7Qp2UmcFCWO7bmhgM5ClgBQ&s",
-      title: "Patient Care"
+    const [addModal, setAddModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [data, setData] = useState([])
+    const [clickedItem,setClickedItem] = useState(null)
+    const setAddModalFunc = () => {
+        
+        setAddModal(prev => !prev)
     }
-  ]);
+    const setDeleteModalFunc = (item=null) => {
+        if(deleteModal){
+            setClickedItem(null)
+        }else{
+            setClickedItem(item)
+        }
+        
+        setDeleteModal(prev => !prev)
+    }
 
-  const handleAddImage = (newImage) => {
-    setImages(prev => [...prev, newImage]);
-    setShowModal(false);
-  };
+    const fetchData = async () => {
+        props.showLoader();
+        {
+         await axios.get('http://localhost:4000/api/gallery/getAllGallery').then((resp) => {
+console.log(resp)
+            setData(resp.data.images)  
+        }).catch(err => {
+                    toast.error(err?.response?.data?.error)
+                }).finally(() => {
+                    props.hideLoader()
+                })
+        }
+    }
 
-  const handleDeleteImage = () => {
-    setImages(prev => prev.filter((_, i) => i !== selectedIndex));
-    closeDeleteModal();
-  };
+    useEffect(() => {
+        fetchData()
+    }, [])
+    return (
+        <div className='gallary-admin'>
+            <div className='go-back'><Link to={'/admin/dashboard'}><ArrowBackIcon /> Back To Dashboard</Link></div>
 
-  return (
-    <div className='gallery-admin'>
-        <div className='go-back'><Link to={'/admin/dashboard'}><ArrowBackIcon /> Back To Dashboard</Link></div>
-      <div className='add-pic-gallary-btn' onClick={() => setAddModalFunc()}>Add Picture</div>
-      {addModal && <AddModel onClose={() => setAddModalFunc()} onAdd={handleAddImage} />}
+            <div className='add-pic-gallary-btn' onClick={setAddModalFunc}>Add</div>
 
-        {deleteModal && <DeleteModal onClose={closeDeleteModal} onDelete={handleDeleteImage}/>}
-
-        <div className='gallery-pics'>
-          {images.map((item, index) => (
-            <div className='gallery-pic-block' key={index}>
-              <img src={item.src} alt={item.title} className='img-admin' />
-              <div className='image-title-overlay'>{item.title}</div>
-              <div className='delete-icon-btn' onClick={() => openDeleteModal(index)}>&#10005;</div>
-            </div>
-          ))}
+            <div className='gallary-home'>
+  {
+    data.map((item) => {
+      return (
+        <div
+          className='gallary-home-image-block img-admin'
+          onClick={() => setDeleteModalFunc(item)}
+        >
+          <img
+            src={item.link}
+            className='gallary-home-image'
+          />
         </div>
-    </div>
-  )
+      );
+    })
+  }
+</div>
+
+           
+            {addModal && <AddModal onClose={setAddModalFunc} />}
+            {deleteModal && <DeleteModal clickedItem={clickedItem} onClose={setDeleteModalFunc} />}
+            <ToastContainer />
+        </div>
+    )
 }
 
-export default AdminGallery
+export default AdminGallary

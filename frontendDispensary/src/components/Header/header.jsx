@@ -54,14 +54,12 @@ const Header = (props) => {
   }
   const handleLogout = async () => {
     props.showLoader();
-    await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true }).then((response) => {
-      console.log(response)
-      localStorage.clear();
-      props.handleLogin(false);
-      navigate('/')
-    }).catch((err) => {
+    await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true }).catch((err) => {
       console.log(err);
     }).finally(() => {
+      localStorage.clear();
+      props.handleLogin(false);
+      navigate('/');
       props.hideLoader();
     })
   }

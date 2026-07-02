@@ -295,7 +295,7 @@ exports.registerStudentByStaff = async (req, res) => {
         
         const mailOptions = {
             from: process.env.EMAIL,
-            to: email,
+            to: body.email,
             subject: 'Password For Dispensary Management System',
             text: `Hi,your password for Dispensary Management System is ${token} whose email id is registered email id ${body.email}.`
         };
