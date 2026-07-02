@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+﻿import React, { useState,useEffect } from 'react'
 import './stock.css'
 import SearchBox from '../../components/SearchBox/searchBox'
 import TableComp from '../../components/Table/tableComp';
@@ -22,7 +22,7 @@ const Stock = (props) => {
 
     const fetchData = async () => {
         props.showLoader();
-        await axios.get(`http://localhost:4000/api/medicine/search?name=${medicineName}`).then((response) => {
+        await axios.get(`${import.meta.env.VITE_API_URL}/api/medicine/search?name=${medicineName}`).then((response) => {
             if(response.data.medicines.length === 0) {
                 setStocks([]);
             }

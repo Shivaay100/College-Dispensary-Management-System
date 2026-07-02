@@ -1,11 +1,11 @@
-import React from 'react'
+﻿import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 const DeleteModal = (props) => {
 
   const handleDelete=async()=>{
     if(props.clickedItem){
-      await axios.delete(`http://localhost:4000/api/gallary/delete/${props.clickedItem._id}`,{withCredentials:true}).then(resp=>{
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/gallary/delete/${props.clickedItem._id}`,{withCredentials:true}).then(resp=>{
         window.location.reload();
       }).catch(err=>{
         alert('Something Went Wrong')

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+﻿import React,{useState,useEffect} from 'react'
 import './gallary.css'
 import axios from 'axios'
 
@@ -9,7 +9,7 @@ const Gallary = (props) => {
     
     const fetchData = async () => {
       props.showLoader()
-    await axios.get('http://localhost:4000/api/gallary/get').then((response) => {
+    await axios.get('${import.meta.env.VITE_API_URL}/api/gallary/get').then((response) => {
       setData(response.data.images)
     }).catch((err) => {
       console.log(err);

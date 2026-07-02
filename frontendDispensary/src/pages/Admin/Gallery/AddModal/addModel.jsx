@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import './addModel.css';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -41,7 +41,7 @@ const AddModal = (props) => {
     };
 
     const handleSubmit = async() => {
-        await axios.post('http://localhost:4000/api/gallery/addGallery', { link: image }, { withCredentials: true }).then((resp) => {
+        await axios.post('${import.meta.env.VITE_API_URL}/api/gallery/addGallery', { link: image }, { withCredentials: true }).then((resp) => {
             window.location.reload();
         }).catch(err => {
             console.log(err)

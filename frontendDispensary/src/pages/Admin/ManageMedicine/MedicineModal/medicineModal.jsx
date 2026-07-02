@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './medicineModal.css'
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const MedicineModal = (props) => {
 
     const updateValue = async () => {
         props.showLoader();
-        await axios.put(`http://localhost:4000/api/medicine/update/${props.clickedMedicine._id}`, medicine, { withCredentials: true }).then((response) => {
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/medicine/update/${props.clickedMedicine._id}`, medicine, { withCredentials: true }).then((response) => {
             window.location.reload();
         }).catch((err) => {
             toast.error(err?.response?.data?.error)
@@ -39,7 +39,7 @@ const MedicineModal = (props) => {
             return toast.error("Please enter all fields")
         }
         props.showLoader()
-        await axios.post('http://localhost:4000/api/medicine/add', medicine, { withCredentials: true }).then((response) => {
+        await axios.post('${import.meta.env.VITE_API_URL}/api/medicine/add', medicine, { withCredentials: true }).then((response) => {
             window.location.reload();
         }).catch((err) => {
             toast.error(err?.response?.data?.error)

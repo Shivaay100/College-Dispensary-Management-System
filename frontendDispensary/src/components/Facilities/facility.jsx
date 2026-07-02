@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import './facility.css'
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ const Facility = (props) => {
 
   const fetchData = async () => {
     props.showLoader()
-    await axios.get("http://localhost:4000/api/facility/get").then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/api/facility/get`).then((response) => {
       setData(response.data.facility);
     }).catch((err) => {
       console.log(err)

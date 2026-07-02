@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import './record.css'
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -52,7 +52,7 @@ function Record(props) {
    const fetchData = async () => {
     props.showLoader();
 
-    await axios.get(`http://localhost:4000/api/history/get-history?month=${selectedMonth}&year=${selectedYear}`, { withCredentials: true }).then((response) => {
+    await axios.get(`${import.meta.env.VITE_API_URL}/api/history/get-history?month=${selectedMonth}&year=${selectedYear}`, { withCredentials: true }).then((response) => {
       // Handle the response
       console.log(response);
       setData(response?.data?.history);
@@ -102,7 +102,7 @@ function Record(props) {
         return;
       }
       props.showLoader();
-      await axios.get(`http://localhost:4000/api/history/get?roll=${studentRoll}`, { withCredentials: true }).then((response) => {
+      await axios.get(`${import.meta.env.VITE_API_URL}/api/history/get?roll=${studentRoll}`, { withCredentials: true }).then((response) => {
         // Handle the response
         console.log(response);
         setSelectedAllDetails(response?.data?.history);

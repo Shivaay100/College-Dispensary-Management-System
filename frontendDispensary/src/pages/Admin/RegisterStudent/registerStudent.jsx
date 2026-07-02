@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import './registerStudent.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ const RegisterStudent = (props) => {
 
           return  toast.error("Please enter a registration number to search.");
           props.showLoader();
-          await axios.get(`http://localhost:4000/api/auth/get-student-by-roll/${searchStudent}`,{withCredentials:true}  ).then((resp)=>{
+          await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/get-student-by-roll/${searchStudent}`,{withCredentials:true}  ).then((resp)=>{
             console.log(resp)
             toast.success(resp?.data?.message);
             setStudentDetail(...studentDetail,...resp.data.student);
@@ -53,7 +53,7 @@ const RegisterStudent = (props) => {
     const handleUpdateFunc = async()=>{
         props.showLoader();
         const { _id,updateAt,...student} = {...studentDetail};
-        await axios.put(`http://localhost:4000/api/auth/update-student/${studentDetail._id}`,student,{withCredentials:true}).then((resp)=>{
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/update-student/${studentDetail._id}`,student,{withCredentials:true}).then((resp)=>{
             console.log(resp)
             toast.success(resp.data.message);
         }).catch((err)=>{
@@ -67,7 +67,7 @@ const RegisterStudent = (props) => {
         if(studentDetail.name.trim()===0 || studentDetail.roll.trim()===0 || studentDetail.email.trim()===0 || studentDetail.mobileNo.trim()===0 || studentDetail.fatherName.trim()===0 || studentDetail.fatherMobile.trim()===0 || studentDetail.address.trim()===0 || studentDetail.previous_health.trim()===0 || studentDetail.age.trim()===0 || studentDetail.bloodGroup.trim()===0){
             return toast.error("Please fill all the fields.");
             props.hideLoader();
-            await axios.post(`http://localhost:4000/api/auth/registerStudentByStaff`,studentDetail,{withCredentials:true}).then((response)=>{
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/registerStudentByStaff`,studentDetail,{withCredentials:true}).then((response)=>{
               toast.success(response.data.message);
             }).catch((err)=>{
                 console.log(err)
