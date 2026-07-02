@@ -12,6 +12,6 @@ const {
 // History Routes
 router.post('/add', Authentication.adminFacultyAuth, addHistory);
 router.get('/get-history', Authentication.adminFacultyAuth, getHistoryByDate); // Fixed: Matched name perfectly
-router.get('/get', Authentication.adminFacultyAuth, getStudentHistory);
+router.get('/get', Authentication.studentAuth, getStudentHistory);
 
 module.exports = router;

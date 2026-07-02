@@ -9,13 +9,11 @@ exports.studentAuth = async (req, res, next) => {
         if(token){
             const decode = jwt.verify(token, "Its_My_Secret_Key");
             req.user = await UserModels.findById(decode.userId).select("-password");
-            next();
+            return next();
 
         }else{
             return res.status(401).json({ error: "Unauthorized" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await UserModels.findById(decoded.userId);
 
     } catch (err) {
         console.log(err);
@@ -36,13 +34,11 @@ exports.adminFacultyAuth = async (req, res, next) => {
             if(req?.user?.role === "student" ){
                 throw new Error("you don't have access to this resource");
             }
-            next();
+            return next();
 
         }else{
             return res.status(401).json({ error: "Unauthorized" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await UserModels.findById(decoded.userId);
 
     } catch (err) {
         console.log(err);
