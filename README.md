@@ -1,4 +1,11 @@
 # College Dispensary Management System
+
+## 🌐 Live Demo
+
+- **Frontend:** https://college-dispensary-frontend.onrender.com
+- **Backend API:** https://college-dispensary-backend.onrender.com
+
+
 ### Motilal Nehru National Institute of Technology, Allahabad
 
 A web-based dispensary management system for MNNIT Allahabad that allows students to view their medical history and enables admin/staff to manage records, medicines, and dispensary operations.
