@@ -5,7 +5,10 @@ const UserModels = require('../Models/user');
 exports.studentAuth = async (req, res, next) => {
     try {
         
-        const token = req.cookies.token;
+        let token = req.cookies.token;
+        if (!token && req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
+            token = req.headers.authorization.split(" ")[1];
+        }
         if(token){
             const decode = jwt.verify(token, "Its_My_Secret_Key");
             req.user = await UserModels.findById(decode.userId).select("-password");
@@ -26,7 +29,10 @@ exports.studentAuth = async (req, res, next) => {
 exports.adminFacultyAuth = async (req, res, next) => {
     try {
         
-        const token = req.cookies.token;
+        let token = req.cookies.token;
+        if (!token && req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
+            token = req.headers.authorization.split(" ")[1];
+        }
         if(token){
             const decode = jwt.verify(token, "Its_My_Secret_Key");
             req.user = await UserModels.findById(decode.userId).select("-password");

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './manageMedicine.css'
 import { Link } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -51,7 +51,7 @@ const ManageMedicine = (props) => {
 
     const handleDelete = async (id) => {
         props.showLoader()
-        await axios.delete(`${import.meta.env.VITE_API_URL}/api/medicine/delete/${id}`, { withCredentials: true }).then((response) => {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/medicine/delete/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, withCredentials: true }).then((response) => {
             filterOutMedicine(id)
         }).catch((err) => {
             toast.error(err?.response?.data?.error)
