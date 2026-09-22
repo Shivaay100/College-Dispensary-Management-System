@@ -16,6 +16,7 @@ import NearByHospital from './pages/Admin/NearByHospital/nearByHospital';
 import AdminGallery from './pages/Admin/Gallery/adminGallery';  
 import StudentDashboard from './pages/Student/studentDashboard';
 import GlobalLoader from './components/GlobalLoader/globalLoader';
+import Chatbot from './components/Chatbot/Chatbot';
 
 
 
@@ -55,7 +56,7 @@ function App() {
         <Route path='/student/:id' element={isLogin && role === "student" ? <StudentDashboard showLoader={showLoader} hideLoader={hideLoader} /> : <Navigate to="/" />} />
       </Routes>
       <Footer />
-
+      <Chatbot />
 
        {loader && <GlobalLoader />}
     </div>
