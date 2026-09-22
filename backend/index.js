@@ -34,6 +34,10 @@ app.use(cors({
  app.use('/api/history',historyRoutes)
 
 
+app.get("/", (req, res) => {
+    res.send("College Dispensary Backend is running!");
+});
+
 
 app.listen(process.env.PORT,()=>{
     console.log("Successfully running on port",process.env.PORT);
