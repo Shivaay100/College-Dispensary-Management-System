@@ -6,9 +6,8 @@ const jwt = require("jsonwebtoken")
 
 const cookieOptions = {
     httpOnly: true,
-    secure: false, // Set to true in production
-    sameSite: 'Lax'
-
+    secure: true,
+    sameSite: 'none'
 };
 
 const transporter = nodemailer.createTransport({
