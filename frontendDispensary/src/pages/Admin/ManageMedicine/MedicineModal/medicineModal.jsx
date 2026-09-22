@@ -19,7 +19,8 @@ const MedicineModal = (props) => {
     const updateValue = async () => {
         props.showLoader();
         await axios.put(`${import.meta.env.VITE_API_URL}/api/medicine/update/${props.clickedMedicine._id}`, medicine, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, withCredentials: true }).then((response) => {
-            window.location.reload();
+            props.fetchData();
+            props.handleClose();
         }).catch((err) => {
             toast.error(err?.response?.data?.error)
         }).finally(() => {
@@ -40,7 +41,8 @@ const MedicineModal = (props) => {
         }
         props.showLoader()
         await axios.post(`${import.meta.env.VITE_API_URL}/api/medicine/add`, medicine, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }, withCredentials: true }).then((response) => {
-            window.location.reload();
+            props.fetchData();
+            props.handleClose();
         }).catch((err) => {
             toast.error(err?.response?.data?.error)
         }).finally(() => {
